@@ -18,7 +18,8 @@ public class Main {
             //Thread.sleep(1000);
             System.out.println("1) Show all products.");
             System.out.println("2) Display cart");
-            System.out.println("3) Exit \n");
+            System.out.println("3) Remove products from cart");
+            System.out.println("4) Exit \n");
             int userChoice = scanner.nextInt();
 
 
@@ -27,10 +28,13 @@ public class Main {
                     displayProducts(scanner,cart);
                     break;
                 case 2:
+                    System.out.printf("Your cart total is: $%.2f.\n", cart.getCartTotal());
                    cart.displayItems();
                     break;
-                case 33:
-
+                case 3:
+                    cart.displayItems();
+                    removeProductWithSku(scanner,cart);
+                    break;
                 case 4:
                     System.exit(0);
                 }
@@ -81,20 +85,18 @@ public class Main {
         if (userChoice == 3)
             System.exit(0);
     }
-//    public static Void displayCart(Scanner scanner, ShoppingCart shoppingCart){
-//
-//
-//    }
+    public static void removeProductWithSku (Scanner scanner, ShoppingCart shoppingCart){
+        scanner.nextLine();
+        System.out.println("Remove product from cart. Please enter the SKU:");
+        String userSku = scanner.nextLine();
+
+        boolean removed = shoppingCart.removeProductBySku(userSku);
+
+        if(removed){
+            System.out.println("Thank you for your business!\n");
+        } else {
+            System.out.println("No product found in your cart with that sku.");
+        }
+    }
+
 }
-//    public static List<Product> searchProductsBySku(List<Product> products, String sku) {
-//        List<Product> foundProduct = new ArrayList<>();
-//        for (Product product : products) {
-//            if (product.getSku().equalsIgnoreCase(sku)) {
-//            }
-//            else {
-//                System.out.println("Unable to find the item");
-//            }
-//        }
-//        return null;
-//    }
-// public static List<Product>

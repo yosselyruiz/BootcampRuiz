@@ -1,5 +1,6 @@
 package org.example;
 
+import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class ShoppingCart {
     public void displayItems(){
         for(Product product : products){
 //            Product currentProduct = product.
-            System.out.println(product.getProductName());
+            System.out.println(product.getProductName()+" $"+product.getPrice()+"\n");
         }
     }
     //Todo: add product to cart method
@@ -29,19 +30,20 @@ public class ShoppingCart {
     //Check to see if the SKU matches
     //Get that product, then use the
 
-    public void removeProductBySku(String sku) {
-        for(Product product : products){
+    public boolean removeProductBySku(String sku) {
+        for (int i = 0; i < products.size(); i++) {
+            Product product = products.get(i);
             if (product.getSku().equalsIgnoreCase(sku)) {
-                products.remove(product);
-                System.out.println("Removed item with sku " + product.getProductName());
-                return;
+                products.remove(i);
+                System.out.println("Removed item " + product.getProductName());
+                return true;
             }
         }
+        return false;
     }
     //Todo: get cart total method
     public double getCartTotal () {
         double total = 0.0;
-
         for (Product p : products) {
             total += p.getPrice();
         }
