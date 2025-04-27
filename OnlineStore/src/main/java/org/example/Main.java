@@ -1,6 +1,6 @@
 package org.example;
 
-import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -46,7 +46,7 @@ public class Main {
         List<Product> products = FileLoader.readfile();
         //calls to loop through the Product array and displays all the products:
         for (Product product : products) {
-            System.out.println(product.getProductName()+ " " + product.getSku()+ " $" + product.getPrice());
+            System.out.println(product.getProductName()+ " SKU: " + product.getSku()+ "\n$" + product.getPrice());
         }
         System.out.println("\nWhat would you like to do? \n");
         System.out.println("1) search product by SKU");
@@ -56,11 +56,11 @@ public class Main {
         if (userChoice == 1) {
             System.out.println("Please enter the SKU of the item you want to search. ");
             String searchProduct = scanner.next();
-            boolean found = false;
+            //boolean found = false;
             for (Product product : products) {
                 if (product.getSku().equalsIgnoreCase(searchProduct)) {
                     System.out.println(product.getProductName() + " $" + product.getPrice());
-                    found = true;
+                //    found = true;
                     break;
                 } else {
                     System.out.println("No product found \n");
@@ -73,15 +73,16 @@ public class Main {
             System.out.println("Enter the SKU of the product you would like to add to your cart.");
             String userSku = scanner.nextLine();
 
-
             for (Product product : products) {
                 if (product.getSku().equalsIgnoreCase(userSku)) {
                     shoppingCart.addProductToCart(product);
+                } else {
+                    System.out.println("Product not found with SKU entered. Try again!\n");
+                    }
                     break;
                 }
             }
 
-        }
         if (userChoice == 3)
             System.exit(0);
     }
@@ -95,7 +96,7 @@ public class Main {
         if(removed){
             System.out.println("Thank you for your business!\n");
         } else {
-            System.out.println("No product found in your cart with that sku.");
+            System.out.println("No product found in your cart with that sku.\n");
         }
     }
 

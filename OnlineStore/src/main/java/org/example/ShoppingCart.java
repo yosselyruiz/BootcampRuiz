@@ -16,7 +16,7 @@ public class ShoppingCart {
     public void displayItems(){
         for(Product product : products){
 //            Product currentProduct = product.
-            System.out.println(product.getProductName()+" $"+product.getPrice()+"\n");
+            System.out.println(product.getProductName()+" SKU: "+product.getSku()+" $"+product.getPrice()+"\n");
         }
     }
     //Todo: add product to cart method
@@ -35,7 +35,7 @@ public class ShoppingCart {
             Product product = products.get(i);
             if (product.getSku().equalsIgnoreCase(sku)) {
                 products.remove(i);
-                System.out.println("Removed item " + product.getProductName());
+                System.out.println("Removed item " + product.getProductName()+" from cart.");
                 return true;
             }
         }
