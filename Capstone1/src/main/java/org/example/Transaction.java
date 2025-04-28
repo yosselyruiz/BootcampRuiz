@@ -7,6 +7,15 @@ public class Transaction {
     private String vendor;
     private double amount;
 
+        public  Transaction() {
+        this.date = "";
+        this.time = "";
+        this.description = "";
+        this.vendor = "";
+        this.amount = 0.0;
+
+    }
+
     public Transaction(String date, String time, String description, String vendor, double amount) {
         this.date = date;
         this.time = time;
