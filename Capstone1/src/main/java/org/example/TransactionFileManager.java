@@ -1,68 +1,73 @@
 package org.example;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionFileManager {
-    public static void writeFile() {
-        try {
-            //stablish the path to the file
-            FileWriter fileWriter = new FileWriter("src/main/resources/transactions.csv");
 
-            fileWriter.write("date|time|description|vendor|amount\n");
-            fileWriter.write("2023-04-15|10:13:25|ergonomic keyboard|Amazon|-89.50\n");
-            fileWriter.write("2023-04-15|11:15:00|Invoice 1001 paid|Joe|1500.00\n");
+    public static List<Transaction> readFile() {
+        List<Transaction> transactionsList = new ArrayList<>();
+        String filePath = "src/main/resources/transactions.csv";
+        File file = new File(filePath);
 
-            fileWriter.close();
-
+        //Make sure the folder exists:
+        File folder = file.getParentFile();
+        if (!folder.exists() || file.length() == 0) {
+            System.out.println("Transaction file not found or is empty.");
+            return transactionsList;
         }
-        catch (IOException exception) {
-            System.out.println("Could not find that path!");
-        }
-    }
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+            String input;
+            bufferedReader.readLine();
+            //Open file in append mode:
+            FileWriter writer = new FileWriter(file, true);
+            writer.write("date|time|description|vendor|amount\n");
+            //Write a header if it's a new or empty file:
+            while ((input = bufferedReader.readLine()) != null) {
+                if (input.trim().isEmpty()) continue;
 
-
-    public class TransactionFileLoader {
-        public static List<Transaction> readFile() {
-            try {
-                FileReader fileReader = new FileReader("src/main/resources/transactions.csv");
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                //skip first line of list
-                bufferedReader.readLine();
-                String input;
-                //We will add to the list as we go along:
-                List<Transaction> transactionList = new ArrayList<>();
-                //Tell it to read line one by one until the end of the file:
-                while ((input = bufferedReader.readLine()) != null) {
-                    String[] row = input.split("\\|");
-                    // convert data as needed
-                    try{
-                        String date = row[0];
-                        String time = row[1];
-                        String description = row[2];
-                        String vendor = row[3];
-                        double amount = Double.parseDouble(row[4]);
-                        //bundle the above data:
-                        Transaction transaction = new Transaction(date, time, description, vendor, amount);
-                        //adding to the list:
-                        transactionList.add(transaction);
-                    } catch (NumberFormatException ex){
-                        System.out.println("Could not parse amount: "+ row[4]);
-                    }
-
+                try {
+                    transactionsList.add(Transaction.fromCSV(input));
+                } catch (Exception ex) {
+                    System.out.println("Skipping invalid line: " + input);
                 }
-                bufferedReader.close();
-                return transactionList;
-            } catch (IOException ex) {
-                System.out.println("Failed to load csv file.");
-                return new ArrayList<>();
             }
-            // return transactionList;
+        } catch (IOException ex) {
+            System.out.println("Failed to load csv file");
+            ex.printStackTrace();
         }
+        return transactionsList;
     }
 
+    public static void writeToFile(Transaction transaction) {
+        String filePath = "src/main/resources/transactions.csv";
+        File file = new File(filePath);
+
+        try {
+            //make sure the folder exists:
+            File folder = file.getParentFile();
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+            boolean fileExists = file.exists();
+            boolean isEmpty = !fileExists||file.length()==0;
+            //Open file in write mode(
+            FileWriter writer = new FileWriter(file, true);
+
+            //write header:
+            if (isEmpty) {
+                writer.write("date|time|description|vendor|amount\n");
+            }
+            //write each transaction from the list to the file:
+
+                writer.write(transaction.toString() + "\n");
+
+            writer.close();
+            System.out.println("All transactions have been written in the file.");
+        } catch (IOException ex) {
+            System.out.println("Error occurred while writing transactions to the file.");
+            ex.printStackTrace();
+        }
+    }
 }

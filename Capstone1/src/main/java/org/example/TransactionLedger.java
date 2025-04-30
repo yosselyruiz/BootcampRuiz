@@ -1,34 +1,57 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class TransactionLedger {
 
     //Call List libary and put the class Transaction and name the variable "transactions".
     //This creates a new list ready to add transactions.
-    private List<Transaction> transactions = new ArrayList<>();
+    private List<Transaction> transactions;
 
-    public void displayTransactions(){
-        for(Transaction transaction:transactions){
-            System.out.println(transaction.getDate()+" "+transaction.getDescription()+" $"+transaction.getAmount()+".");
-        }
+    public TransactionLedger(){
+        this.transactions = new ArrayList<>();
     }
     public void addDepositTransaction(Transaction transaction){
         //This is to make payments, they will show up as negative
-        transactions.add(transaction);
-        System.out.println(transaction.getDescription()+" $-"+transaction.getAmount()+" was saved.\n");
+       if(transaction.getAmount() > 0){
+           transactions.add(transaction);
+           System.out.println(transaction.getDescription()+" $"+transaction.getAmount()+" was saved.\n");
+       } else {
+           System.out.println("Amount must be greater than $0. \n");
+       }
+    }
+    public void addDebitTransaction(Transaction transaction) {
 
-    }
-    public void addDebitTransaction(Transaction transaction){
-        transactions.add(transaction);
-        System.out.println(transaction.getDescription()+" $"+transaction.getAmount()+ " was saved.\n");
-    }
-    public double getTransactionBalance (){
-        double total = 0.0;
-        for(Transaction transaction : transactions){
-            total += transaction.getAmount();
+        if (transaction.getAmount() < 0) {
+            transactions.add(transaction);
+            System.out.println(transaction.getDescription() + " $" + transaction.getAmount() + " was saved.\n");
         }
-        return total;
+    }
+    public List<Transaction> getTransactions(){
+      return transactions;
+    }
+    public void loadTransactionsFromFile(){
+        List<Transaction> loadedTransactions = TransactionFileManager.readFile();
+        transactions.addAll(loadedTransactions);
+    }
+    public List<Transaction> getDeposits(){
+        List<Transaction> deposits = new ArrayList<>();
+        for (Transaction t : transactions){
+            if(t.getAmount()> 0){
+                deposits.add(t);
+            }
+        }
+        return deposits;
+    }
+    public List<Transaction> getDebits(){
+        List<Transaction> debits = new ArrayList<>();
+        for(Transaction t : transactions){
+            if(t.getAmount() < 0 ){
+                debits.add(t);
+            }
+        }
+        return debits;
     }
 }
