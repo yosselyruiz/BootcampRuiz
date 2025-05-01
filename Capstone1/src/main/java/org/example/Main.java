@@ -152,7 +152,7 @@ public class Main {
     public static void searchTransactions(Scanner scanner, TransactionLedger transactionLedger) {
         System.out.println("Please enter the type of transaction you want to search : 1) deposit or 2) debit.\n");
             int type = scanner.nextInt();
-            scanner.nextInt();
+            //scanner.nextInt();
 
             //Look through the list:
             List<Transaction> results;

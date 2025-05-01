@@ -40,7 +40,7 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s|%s|%s|%s|%.3f",
+        return String.format("%s|%s|%s|%s|%.2f",
                 date.toString(),
                 time.toString(),
                 description,
