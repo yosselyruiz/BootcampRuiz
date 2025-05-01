@@ -1,15 +1,13 @@
 package org.example;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class TransactionLedger {
 
-    //Call List libary and put the class Transaction and name the variable "transactions".
-    //This creates a new list ready to add transactions.
+    //Call List library and put the class Transaction and name the variable "transactions".
     private List<Transaction> transactions;
-
+    //This creates a new list ready to add transactions.
     public TransactionLedger(){
         this.transactions = new ArrayList<>();
     }
@@ -26,13 +24,16 @@ public class TransactionLedger {
 
         if (transaction.getAmount() < 0) {
             transactions.add(transaction);
-            System.out.println(transaction.getDescription() + " $" + transaction.getAmount() + " was saved.\n");
+            System.out.println(transaction.getDescription() + " payment for $" + transaction.getAmount() + " was saved.\n");
+        } else {
+            System.out.println("Amount must be greater than $0. \n");
         }
     }
     public List<Transaction> getTransactions(){
       return transactions;
     }
     public void loadTransactionsFromFile(){
+        //used to load saved transactions when program starts up.
         List<Transaction> loadedTransactions = TransactionFileManager.readFile();
         transactions.addAll(loadedTransactions);
     }

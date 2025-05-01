@@ -19,10 +19,13 @@ public class TransactionFileManager {
         }
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String input;
+            //skips the first line:
             bufferedReader.readLine();
+
             //Open file in append mode:
-            FileWriter writer = new FileWriter(file, true);
-            writer.write("date|time|description|vendor|amount\n");
+            //FileWriter writer = new FileWriter(file, true);
+           // writer.write("date|time|description|vendor|amount\n");
+
             //Write a header if it's a new or empty file:
             while ((input = bufferedReader.readLine()) != null) {
                 if (input.trim().isEmpty()) continue;

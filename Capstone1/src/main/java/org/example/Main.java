@@ -7,12 +7,13 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner (System.in);
-            TransactionLedger transactionLedger = new TransactionLedger();
+        Scanner scanner = new Scanner(System.in);
+        TransactionLedger transactionLedger = new TransactionLedger();
 
-            //Load transactions from the file when the app starts:
-            transactionLedger.loadTransactionsFromFile();
+        //Load transactions from the file when the app starts:
+        transactionLedger.loadTransactionsFromFile();
 
+        //Main menu:
         while (true) {
             System.out.println("\nMain Menu \n");
             System.out.println("1) Display ALL transactions.");
@@ -24,43 +25,53 @@ public class Main {
 
             switch (userChoice) {
                 case 1:
-                    displayTransactions(scanner,transactionLedger);
+                    displayTransactions(scanner, transactionLedger);
                     break;
                 case 2:
-                    addDepositTransaction(scanner,transactionLedger);
+                    addDepositTransaction(scanner, transactionLedger);
                     break;
                 case 3:
-                    addDebitTransaction(scanner,transactionLedger);
+                    addDebitTransaction(scanner, transactionLedger);
 
                     break;
                 case 4:
-                    searchTransactions(scanner,transactionLedger);
+                    searchTransactions(scanner, transactionLedger);
                     break;
                 case 5:
                     System.exit(0);
             }
         }
-
     }
 
     public static void displayTransactions(Scanner scanner, TransactionLedger transactionLedger) {
         try {
             System.out.println("Here is the list of transactions: \n");
-            System.out.println("Date|Description|Vendor|Amount");
+            System.out.println("Date | Time | Description | Vendor | Amount");
             List<Transaction> transactions = transactionLedger.getTransactions();
             //Loops through the transactions array and displays all the transactions:
+
             for (Transaction transaction : transactions) {
-                System.out.println(transaction.getDate() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|$" + transaction.getAmount());
+                System.out.println(transaction.getDate() + "|" + transaction.getTime() + "|" + transaction.getDescription() + "|" + transaction.getVendor() + "|$" + transaction.getAmount());
             }
             System.out.println("\nEnter 0 to return to the main menu.");
-            String input = scanner.nextLine();
-            if (input.equals("0")) {
+            scanner.nextLine();
+
+            boolean loop = true;
+            while (loop) {
+                String input = scanner.nextLine();
+
+                if (input.equals("0")) {
+                    loop = false;
+                } else {
+                    System.out.println("Invalid input, please enter 0 to exit to main menu.");
+                }
             }
         } catch (Exception ex) {
             System.out.println("Failed to read transactions.");
             ex.printStackTrace();
         }
     }
+
     public static void addDepositTransaction(Scanner scanner, TransactionLedger transactionLedger) {
         try {
             System.out.println("Please enter the amount of your deposit.");
@@ -70,7 +81,7 @@ public class Main {
 
             if (amount <= 0) {
                 System.out.println("Deposit must be greater than $0.");
-                return ;
+                return;
             }
             //Get time and date (current)
             LocalDate currentDate = LocalDate.now();
@@ -82,8 +93,8 @@ public class Main {
             System.out.println("Enter the vendor: ");
             String vendor = scanner.nextLine();
 
-           //Create the transaction object
-            Transaction deposit = new Transaction(currentDate,currentTime, description, vendor,amount);
+            //Create the transaction object
+            Transaction deposit = new Transaction(currentDate, currentTime, description, vendor, amount);
 
             //add deposit transaction to the ledger:
             transactionLedger.addDepositTransaction(deposit);
@@ -99,7 +110,8 @@ public class Main {
             ex.printStackTrace();
         }
     }
-    public static void addDebitTransaction(Scanner scanner, TransactionLedger transactionLedger){
+
+    public static void addDebitTransaction(Scanner scanner, TransactionLedger transactionLedger) {
         try {
             System.out.println("Please enter the amount of your payment: ");
             scanner.nextLine();
@@ -108,8 +120,7 @@ public class Main {
             if (amount <= 0) {
                 System.out.println("Payment amount must be greater than $0.");
                 return;
-            }
-            else {
+            } else {
                 //convert to negative # for a payment transaction:
                 amount *= -1;
 
@@ -132,45 +143,44 @@ public class Main {
 
                 System.out.println("Payment was successful!");
             }
-        } catch (NumberFormatException ex){
+        } catch (NumberFormatException ex) {
             System.out.println("Invalid entry. Please enter ONLY numbers. No special characters.");
-            System.out.println("An error occurred while processing the payment.");
             ex.printStackTrace();
         }
     }
-    public static void searchTransactions (Scanner scanner, TransactionLedger transactionLedger){
+
+    public static void searchTransactions(Scanner scanner, TransactionLedger transactionLedger) {
         System.out.println("Please enter the type of transaction you want to search : 1) deposit or 2) debit.\n");
-        int type = scanner.nextInt();
+            int type = scanner.nextInt();
+            scanner.nextInt();
 
-        //Look through the list:
-        List<Transaction> results;
+            //Look through the list:
+            List<Transaction> results;
 
-        switch (type){
-            case 1:
-            results = transactionLedger.getDeposits();
-                System.out.println("Here is the list of your deposits: \n");
-                break;
-            case 2:
-                results = transactionLedger.getDebits();
-                System.out.println("Here is the list of your debits: \n");
-                break;
-            default:
-                System.out.println("Invalid input. Please enter debit or deposit.");
-                return;
+            switch (type) {
+                case 1:
+                    results = transactionLedger.getDeposits();
+                    System.out.println("Here is the list of your deposits: \n");
+                    break;
+                case 2:
+                    results = transactionLedger.getDebits();
+                    System.out.println("Here is the list of your debits: \n");
+                    break;
+                default:
+                    System.out.println("Invalid input. Please enter debit or deposit.");
+                    return;
             }
-        if (results.isEmpty()) {
-            System.out.println("No transactions found for this type.");
-        //Here, it is where it actually gives me the results!
-        } else {
-            System.out.println("Date | Description | Vendor | Amount");
-            for (Transaction t : results) {
-                System.out.printf("%s | %s | %s | $%.2f%n", t.getDate(), t.getDescription(), t.getVendor(), t.getAmount());
-              //Here, it ended early:  return;
-
+            if (results.isEmpty()) {
+                System.out.println("No transactions found for this type.");
+                //Here, it is where it actually gives me the results!
+            } else {
+                System.out.println("Date | Time | Description | Vendor | Amount");
+                for (Transaction t : results) {
+                    System.out.printf("%s | %s | %s | %s | $%.2f%n", t.getDate(), t.getTime(), t.getDescription(), t.getVendor(), t.getAmount());
+                    //Here, it ended early:  return;
+                }
             }
+            System.out.println("\nEnter 0 to return to the main menu.");
+            scanner.nextInt(); // Wait for input before returning
         }
-
-        System.out.println("\nEnter 0 to return to the main menu.");
-        scanner.nextInt(); // Wait for input before returning
     }
-        }
