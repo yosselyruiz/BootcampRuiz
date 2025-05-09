@@ -1,6 +1,5 @@
 package org.example;
 
-import java.sql.SQLOutput;
 import java.util.Scanner;
 
 public class Main {
@@ -68,6 +67,7 @@ public class Main {
     }
 
     //This is the for statement for 1 of menu
+    //the parenthesis: parameters, what info do I need for the method to do its job?
     public static void showAvailableBooks(Book[] inventory) {
         for (int i = 0; i < inventory.length; i++) {
             //create a variable for currentBooks

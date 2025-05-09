@@ -1,6 +1,7 @@
 package org.example;
 
 public class Book {
+    //Objects are bundles of infor in the real world
     //Create the Properties
     public int ID;
     public String isbn;
@@ -71,7 +72,8 @@ public class Book {
     }
 
     //**** create the methods for checkOut and checkIn ****
-    //check Out:
+    // You are trying to "check the STATE of the book".
+    //check Out: each book needs to check out and who it is checked out to
     public boolean checkOut(String borrowerName) {
         if (isCheckedOut) {
             isCheckedOut = true;

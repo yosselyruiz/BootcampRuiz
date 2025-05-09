@@ -1,6 +1,5 @@
 package org.example;
 
-import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +7,6 @@ public class ShoppingCart {
     //call the list library, and put the class Product and name the variable "products."
     //this will create a NEW list ready to add items. this is a constructor
     private List<Product> products = new ArrayList<>();
-
-//    public ShoppingCart() {
-//        this.products = new ArrayList<>();
-//    }
 
     public void displayItems(){
         for(Product product : products){
