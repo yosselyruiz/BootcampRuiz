@@ -190,6 +190,18 @@ public class UserInterface {
     }
 
     public void processRemoveVehicleRequest() {
-        //to be implemented
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the Vehicle VIN you want to remove: ");
+        int vinToRemove = scanner.nextInt();
+
+        List<Vehicle> currentInventory = dealership.getInventory();
+        boolean removed = currentInventory.removeIf(vehicle -> vehicle.getVin() == vinToRemove);
+        if(removed){
+            System.out.println("Vehicle removed from dealership.");
+            DealershipFileManager.overWriteInventoryFile(dealership);
+        }
+        else{
+            System.out.println("Vehicle with VIN: " + vinToRemove + " not found.");
+        }
     }
 }

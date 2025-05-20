@@ -1,4 +1,5 @@
 package org.example;
+import javax.swing.*;
 import java.io.*;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -68,6 +69,23 @@ public class DealershipFileManager {
         }
         catch (IOException exception){
             System.out.println("Error occurred while writting transactions to the file.");
+        }
+    }
+    public static void overWriteInventoryFile(Dealership dealership){
+        String filePath = "src/main/resources/inventory.csv";
+        File file = new File(filePath);
+
+        try(FileWriter writer = new FileWriter(file)){
+            //write dealership info:
+            writer.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhoneNumber() + "\n");
+            //write all vehicles
+            for(Vehicle vehicle : dealership.getInventory()){
+                writer.write(vehicle.toString() + "\n");
+            }
+            System.out.println("Inventory file overwritten successfully.");
+        }
+        catch (IOException ex){
+            System.out.println("Error occurred while overwriting inventory file.");
         }
     }
 }
