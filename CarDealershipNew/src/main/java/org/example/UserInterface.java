@@ -210,24 +210,21 @@ public class UserInterface {
 
     public void processCreateContractRequest(){
         scanner.nextLine();  // clear buffer
-        System.out.print("Enter VIN of the vehicle: ");
-        int vin = scanner.nextInt();
-        scanner.nextLine();
-
-        Vehicle vehicle = dealership.getVehicleByVin(vin);
-
-        if (vehicle == null) {
-            System.out.println("Vehicle not found.");
-            return;
-        }
         System.out.print("Enter customer name: ");
         String customerName = scanner.nextLine();
         System.out.print("Enter customer email: ");
         String email = scanner.nextLine();
         System.out.print("Is this a SALE or LEASE? ");
         String type = scanner.nextLine().trim().toUpperCase();
-
         String date = java.time.LocalDate.now().toString();
+        System.out.print("Enter VIN of the vehicle: ");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+        Vehicle vehicle = dealership.getVehicleByVin(vin);
+        if (vehicle == null) {
+            System.out.println("Vehicle not found.");
+            return;
+        }
 
         //If it is a sale:
         Contract contract;
@@ -235,12 +232,12 @@ public class UserInterface {
             System.out.println("Is the vehicle financed? (yes/no): ");
             String financeResponse = scanner.nextLine().trim().toLowerCase();
             boolean finance = financeResponse.equalsIgnoreCase("yes");
-            SalesContract sale = new SalesContract(date,customerName,email, vin, finance);
+            SalesContract sale = new SalesContract(date,customerName,email, vin, finance,dealership);
             sale.setDealership(dealership);
             contract = sale;
 
         } else if (type.equalsIgnoreCase("Lease")){
-            LeaseContract lease = new LeaseContract(date,customerName,email,vehicleSoldByVin, expectedEndingValue, leaseFee);
+            LeaseContract lease = new LeaseContract(date,customerName,email,vin, expectedEndingValue, leaseFee);
             contract = lease;
         }
         else {

@@ -8,8 +8,8 @@ public class SalesContract extends Contract {
     private Dealership dealership;
 
 
-    public SalesContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, boolean finance) {
-        super(dateOfContract, customerName, email, vehicleSoldByVin);
+    public SalesContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, boolean finance, Dealership dealership) {
+        super(dateOfContract, customerName, email, vehicleSoldByVin, dealership);
         this.finance = finance;
     }
 
@@ -44,6 +44,10 @@ public class SalesContract extends Contract {
     public void setProcessingFee(double processingFee) {
         this.processingFee = processingFee;
     }
+    public void setDealership(Dealership dealership) {
+        this.dealership = dealership;
+    }
+
 
     @Override
     public double getTotalPrice() {
