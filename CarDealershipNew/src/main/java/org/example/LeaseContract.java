@@ -38,12 +38,13 @@ public class LeaseContract extends Contract{
     }
     @Override
     public double getMonthlyPayment() {
-        double total = getTotalPrice();
+        Vehicle vehicle = getVehicle(dealership);
+        double price = vehicle.getPrice();
         double interestRate = 0.04;
         int months = 36;
      //Formula for monthly payment:
         double monthlyInterest = interestRate / 12;
-        double monthlyPayment = (total * monthlyInterest)/(1 - Math.pow(1 + monthlyInterest, -months));
+        double monthlyPayment = (price * monthlyInterest)/(1 - Math.pow(1 + monthlyInterest, -months));
         return monthlyPayment;
     }
 }

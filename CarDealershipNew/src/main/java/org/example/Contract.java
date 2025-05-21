@@ -8,6 +8,7 @@ public abstract class Contract {
     private int vehicleSoldByVin;
     private double price;
     private double monthlyPayment;
+    private Dealership dealership;
 
     public Contract(String dateOfContract, String customerName, String email, int vehicleSoldByVin) {
         this.dateOfContract = dateOfContract;

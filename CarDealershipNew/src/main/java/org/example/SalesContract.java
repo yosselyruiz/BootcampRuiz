@@ -2,7 +2,11 @@ package org.example;
 
 public class SalesContract extends Contract {
     private boolean finance;
+    private double tax;
+    private double recordingFee;
+    private double processingFee;
     private Dealership dealership;
+
 
     public SalesContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, boolean finance) {
         super(dateOfContract, customerName, email, vehicleSoldByVin);
@@ -17,6 +21,30 @@ public class SalesContract extends Contract {
         this.finance = finance;
     }
 
+    public double getTax() {
+        return tax;
+    }
+
+    public void setTax(double tax) {
+        this.tax = tax;
+    }
+
+    public double getRecordingFee() {
+        return recordingFee;
+    }
+
+    public void setRecordingFee(double recordingFee) {
+        this.recordingFee = recordingFee;
+    }
+
+    public double getProcessingFee() {
+        return processingFee;
+    }
+
+    public void setProcessingFee(double processingFee) {
+        this.processingFee = processingFee;
+    }
+
     @Override
     public double getTotalPrice() {
         Vehicle vehicle = getVehicle(dealership);
@@ -24,9 +52,9 @@ public class SalesContract extends Contract {
             return 0;
         }
         double price = vehicle.getPrice();
-        double tax = price * 0.005;
-        double recordingFee = 100;
-        double processingFee = (price < 10000) ? 295 : 495;
+        this.tax = price * 0.005;
+        this.recordingFee = 100;
+        this.processingFee = (price < 10000) ? 295 : 495;
         return price + tax + recordingFee + processingFee;
     }
 
@@ -35,11 +63,15 @@ public class SalesContract extends Contract {
         if (!finance) {
             return 0;
         }
+        //get the vehicle being sold:
         Vehicle soldVehicle = getVehicle(dealership);
+        //Does it exist?
         if (soldVehicle == null) {
             System.out.println("Vehicle not found.");
             return 0;
         }
+
+        //Get price of vehicle:
         double price = soldVehicle.getPrice();
         double rate;
         int months;
@@ -51,8 +83,8 @@ public class SalesContract extends Contract {
             rate = 0.0525;
             months = 24;
         }
-        double totalPrice = getTotalPrice();
-        double monthlyPayment = (totalPrice * (1 * rate)) / months;
+        double monthlyInterest = rate / 12;
+        double monthlyPayment = (price * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -months));
         return monthlyPayment;
     }
 }

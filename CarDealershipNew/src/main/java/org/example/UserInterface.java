@@ -59,6 +59,9 @@ public class UserInterface {
                 case 9:
                     processRemoveVehicleRequest();
                     break;
+                case 10:
+                    processCreateContractRequest();
+                    break;
                 case 0:
                     // fileManager.saveDealership(dealership);
                     System.out.println("Exiting application.");
@@ -203,5 +206,51 @@ public class UserInterface {
         else{
             System.out.println("Vehicle with VIN: " + vinToRemove + " not found.");
         }
+    }
+
+    public void processCreateContractRequest(){
+        scanner.nextLine();  // clear buffer
+        System.out.print("Enter VIN of the vehicle: ");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+
+        Vehicle vehicle = dealership.getVehicleByVin(vin);
+
+        if (vehicle == null) {
+            System.out.println("Vehicle not found.");
+            return;
+        }
+        System.out.print("Enter customer name: ");
+        String customerName = scanner.nextLine();
+        System.out.print("Enter customer email: ");
+        String email = scanner.nextLine();
+        System.out.print("Is this a SALE or LEASE? ");
+        String type = scanner.nextLine().trim().toUpperCase();
+
+        String date = java.time.LocalDate.now().toString();
+
+        //If it is a sale:
+        Contract contract;
+        if(type.equalsIgnoreCase("Sale")){
+            System.out.println("Is the vehicle financed? (yes/no): ");
+            String financeResponse = scanner.nextLine().trim().toLowerCase();
+            boolean finance = financeResponse.equalsIgnoreCase("yes");
+            SalesContract sale = new SalesContract(date,customerName,email, vin, finance);
+            sale.setDealership(dealership);
+            contract = sale;
+
+        } else if (type.equalsIgnoreCase("Lease")){
+            LeaseContract lease = new LeaseContract(date,customerName,email,vehicleSoldByVin, expectedEndingValue, leaseFee);
+            contract = lease;
+        }
+        else {
+            System.out.println("Invalid contract type.");
+            return;
+        }
+        // Save the contract and remove vehicle
+        ContractFileManager.saveContract(contract);
+        dealership.removeVehicle(vin);
+        DealershipFileManager.overWriteInventoryFile(dealership);
+        System.out.println("Contract saved and vehicle removed from inventory.");
     }
 }
