@@ -67,10 +67,10 @@ public class SalesContract extends Contract {
             return 0;
         }
         double price = vehicle.getPrice();
-        this.tax = price * 0.005;
+        this.tax = price * 0.05;
         this.recordingFee = 100;
         this.processingFee = (price < 10000) ? 295 : 495;
-        return price + tax + recordingFee + processingFee;
+        return (price + tax) + recordingFee + processingFee;
     }
 
     @Override
@@ -92,14 +92,13 @@ public class SalesContract extends Contract {
         int months;
 
         if (price >= 10000) {
-            rate = 0.0425;
+            rate = price * 0.0425;
             months = 48;
+            return (price + rate) / months;
         } else {
-            rate = 0.0525;
+            rate = price * 0.0525;
             months = 24;
+            return (price + rate) / months;
         }
-        double monthlyInterest = rate / 12;
-        double monthlyPayment = (price * monthlyInterest) / (1 - Math.pow(1 + monthlyInterest, -months));
-        return monthlyPayment;
     }
 }

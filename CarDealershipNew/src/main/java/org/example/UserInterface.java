@@ -66,9 +66,7 @@ public class UserInterface {
                     processCreateContractRequest();
                     break;
                 case 0:
-                    // fileManager.saveDealership(dealership);
-                    System.out.println("Exiting application.");
-                    break;
+                    System.exit(0);
                 default:
                     System.out.println("Invalid selection. Try again.");
             }
