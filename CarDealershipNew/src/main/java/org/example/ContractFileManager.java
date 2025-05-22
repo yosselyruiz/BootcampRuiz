@@ -10,8 +10,8 @@ public class ContractFileManager {
         try(FileWriter writer = new FileWriter(FILE_PATH,true)){
             if(contract instanceof SalesContract){
                 SalesContract sale = (SalesContract) contract; //downcasting
-                Vehicle vehicle = sale.getVehicle(dealership);
-                writer.write(String.format("SALE|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%s|%.2f\n",
+                Vehicle vehicle = sale.getVehicle();
+                writer.write(String.format("SALE|%s|%s|%s|%d|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f|%d|%.2f\n",
                         sale.getDateOfContract(),
                         sale.getCustomerName(),
                         sale.getEmail(),
@@ -28,15 +28,15 @@ public class ContractFileManager {
                         sale.getProcessingFee(),
                         sale.getRecordingFee(),
                         sale.getTotalPrice(),
-                        sale.isFinance() ? "YES" : "NO",
+                        sale.isFinance() ? 1 : 2,
                         sale.getMonthlyPayment()
                         ));
 
             }
             else if (contract instanceof LeaseContract){
             LeaseContract lease = (LeaseContract) contract;
-            Vehicle vehicle = lease.getVehicle(dealership);
-            writer.write(String.format("LEASE|%s|%s|%s|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f\n",
+            Vehicle vehicle = lease.getVehicle();
+            writer.write(String.format("LEASE|%s|%s|%s|%d|%d|%d|%s|%s|%s|%s|%d|%.2f|%.2f|%.2f|%.2f|%.2f\n",
                     lease.getDateOfContract(),
                     lease.getCustomerName(),
                     lease.getEmail(),

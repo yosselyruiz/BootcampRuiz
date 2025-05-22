@@ -3,10 +3,10 @@ package org.example;
 public class LeaseContract extends Contract{
     private double expectedEndingValue;
     private double leaseFee;
-    private Dealership dealership;
 
-    public LeaseContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, double expectedEndingValue, double leaseFee) {
-        super(dateOfContract, customerName, email, vehicleSoldByVin);
+
+    public LeaseContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, double expectedEndingValue, double leaseFee, Dealership dealership) {
+        super(dateOfContract, customerName, email, vehicleSoldByVin, dealership);
         this.expectedEndingValue = expectedEndingValue;
         this.leaseFee = leaseFee;
     }
@@ -28,7 +28,7 @@ public class LeaseContract extends Contract{
     }
     @Override
     public double getTotalPrice(){
-        Vehicle vehicle = getVehicle(dealership);
+        Vehicle vehicle = getVehicle();
         if(vehicle == null){
             return 0;
         }
@@ -38,7 +38,7 @@ public class LeaseContract extends Contract{
     }
     @Override
     public double getMonthlyPayment() {
-        Vehicle vehicle = getVehicle(dealership);
+        Vehicle vehicle = getVehicle();
         double price = vehicle.getPrice();
         double interestRate = 0.04;
         int months = 36;

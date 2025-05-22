@@ -103,20 +103,32 @@ public class Dealership {
         return result;
     }
 
-//    public Vehicle getVehichleByVin (String vin){
-//
-//    }
+    public Vehicle getVehicleByVin (int vin){
+        for(Vehicle v : inventory){
+            if(v.getVin() == vin){
+                return v;
+            }
+        }
+        return null;
+    }
 
     public void addVehicle (Vehicle vehicle) {
       inventory.add(vehicle);
     }
 
-    public void removeVehicle(Vehicle vehicle){
-        this.inventory.remove(vehicle);
+    public void removeVehicle(int vin){
+        for(int i = 0; i < inventory.size(); i++){
+            if(inventory.get(i).getVin() == vin){
+                inventory.remove(i);
+                return;
+            }
+        }
     }
 
     public List<Vehicle> getInventory(){
         return inventory;
 
     }
+
+
 }

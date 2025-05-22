@@ -11,6 +11,7 @@ public class SalesContract extends Contract {
     public SalesContract(String dateOfContract, String customerName, String email, int vehicleSoldByVin, boolean finance, Dealership dealership) {
         super(dateOfContract, customerName, email, vehicleSoldByVin, dealership);
         this.finance = finance;
+        this.dealership = dealership;
     }
 
     public boolean isFinance() {
@@ -47,11 +48,21 @@ public class SalesContract extends Contract {
     public void setDealership(Dealership dealership) {
         this.dealership = dealership;
     }
-
+    @Override
+    public String toString() {
+        return "SalesContract{" +
+                "customerName='" + getCustomerName() + '\'' +
+                ", email='" + getEmail() + '\'' +
+                ", vin=" + getVehicleSoldByVin() +
+                ", financed=" + finance +
+                ", totalPrice=" + getTotalPrice() +
+                ", monthlyPayment=" + getMonthlyPayment() +
+                '}';
+    }
 
     @Override
     public double getTotalPrice() {
-        Vehicle vehicle = getVehicle(dealership);
+        Vehicle vehicle = getVehicle();
         if (vehicle == null) {
             return 0;
         }
@@ -68,7 +79,7 @@ public class SalesContract extends Contract {
             return 0;
         }
         //get the vehicle being sold:
-        Vehicle soldVehicle = getVehicle(dealership);
+        Vehicle soldVehicle = getVehicle();
         //Does it exist?
         if (soldVehicle == null) {
             System.out.println("Vehicle not found.");

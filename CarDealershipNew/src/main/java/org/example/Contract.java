@@ -15,8 +15,7 @@ public abstract class Contract {
         this.customerName = customerName;
         this.email = email;
         this.vehicleSoldByVin = vehicleSoldByVin;
-
-
+        this.dealership = dealership;
     }
 
     public String getDateOfContract() {
@@ -51,7 +50,7 @@ public abstract class Contract {
         this.vehicleSoldByVin = vehicleSoldByVin;
     }
     //This is so that the vehicle sold by vin can also display the price of it.
-    public Vehicle getVehicle(Dealership dealership){
+    public Vehicle getVehicle(){
         for(Vehicle v : dealership.getInventory()){
             if(v.getVin() == this.vehicleSoldByVin){
                 return v;
@@ -61,6 +60,14 @@ public abstract class Contract {
     }
     public void setPrice (double price){
         this.price = price;
+    }
+
+    public Dealership getDealership() {
+        return dealership;
+    }
+
+    public void setDealership(Dealership dealership) {
+        this.dealership = dealership;
     }
 
     public double getTotalPrice(){
