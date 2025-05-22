@@ -212,6 +212,7 @@ public class UserInterface {
     }
 
     public void processCreateContractRequest() {
+
         ContractFileManager contractFileManager = new ContractFileManager();
         scanner.nextLine();
         System.out.print("Enter customer name: ");
