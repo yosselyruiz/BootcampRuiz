@@ -57,6 +57,7 @@ public class Order {
                     System.out.println("item removed");
                 }
         }
+        return false;
     }
 
     //Helper method for orderSummary
@@ -70,10 +71,17 @@ public class Order {
     public void orderSummary(){
         System.out.println("Oder placed on: " + dateTime);
         System.out.println("Here is your order summary: ");
+        double total = 0.0;
         for(PricedItem item : items){
-            System.out.println("- " + item.getName() + " $" + item.getPrice());
-        }
-        System.out.println(getTotal());
-    }
+            System.out.println("- " + item.getName());
 
+            if(item instanceof Sandwich sandwich){
+                System.out.println(sandwich.getBreadType() + sandwich.getSize() +
+                        sandwich.getPrice() + sandwich.isToasted());
+                for(Topping topping : sandwich.getToppingList()){
+                    System.out.println("   - " + topping.getName() +
+                }
+            }
+        }
+    }
 }

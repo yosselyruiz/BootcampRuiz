@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Scanner;
 
 public class MeatTopping extends Topping{
     private boolean isExtra;
@@ -22,8 +21,7 @@ public class MeatTopping extends Topping{
 
     @Override
     public double getPrice(){
-        Scanner scanner = new Scanner(System.in);
-        int size = scanner.nextInt();
+        int size = 0;
         double base;
         switch (size){
             case 4:

@@ -2,7 +2,6 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Sandwich extends PricedItem{
     private String breadType;
@@ -16,6 +15,10 @@ public class Sandwich extends PricedItem{
         this.isToasted = isToasted;
         this.size = size;
         this.toppingList = new ArrayList<>(); //to initialize the list
+    }
+
+    public List<Topping> getToppingList() {
+        return toppingList;
     }
 
     public String getBreadType() {
@@ -44,8 +47,8 @@ public class Sandwich extends PricedItem{
 
     @Override
     public double getPrice(){
-        Scanner scanner = new Scanner(System.in);
-        int size = scanner.nextInt();
+//        Scanner scanner = new Scanner(System.in);
+//        int size = scanner.nextInt();
         double base = 0;
         switch (size){
             case 4:
