@@ -4,10 +4,21 @@ import java.util.Scanner;
 
 public class CheeseTopping extends Topping{
     private boolean isExtra;
+    private int size;
 
-    public CheeseTopping(String name, boolean isExtra) {
+
+    public CheeseTopping(String name, boolean isExtra, int size) {
         super(name);
         this.isExtra = isExtra;
+        this.size = size;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public boolean isExtra() {
@@ -18,10 +29,9 @@ public class CheeseTopping extends Topping{
         isExtra = extra;
     }
 
+
     @Override
     public double getPrice(){
-        Scanner scanner = new Scanner(System.in);
-        int size = scanner.nextInt();
         double base;
         switch (size){
             case 4:

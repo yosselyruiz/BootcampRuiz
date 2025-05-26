@@ -68,10 +68,18 @@ public class Sandwich extends PricedItem{
 
     @Override
     public String toString() {
-        return "Sandwich{" +
-                "breadType='" + breadType + '\'' +
-                ", isToasted=" + isToasted +
-                ", toppingList=" + toppingList +
-                '}';
+        StringBuilder sb = new StringBuilder();
+        sb.append("Sandwich on ").append(breadType);
+        sb.append(", ").append(size).append("\"");
+        sb.append(", ").append(isToasted ? "Toasted" : "Not Toasted");
+        sb.append("\n Toppings:");
+
+        for(Topping topping : toppingList){
+            sb.append("\n    - ").append(topping.getName());
+            if(topping instanceof MeatTopping && ((MeatTopping) topping).isExtra()){
+                sb.append(" (extra");
+            }
+        }
+        return sb.toString();
     }
 }

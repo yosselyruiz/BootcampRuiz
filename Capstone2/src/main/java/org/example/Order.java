@@ -8,6 +8,7 @@ import java.util.Scanner;
 public class Order {
     private List<PricedItem> items;
     private LocalDateTime dateTime;
+    private List<Topping> toppingList;
 
     public Order(LocalDateTime dateTime) {
         this.dateTime = dateTime;
@@ -24,6 +25,12 @@ public class Order {
 
     public List<PricedItem> getItem() {
         return items;
+    }
+    public void addTopping(Topping topping){
+        toppingList.add(topping);
+    }
+    public boolean removeTopping (String name){
+        return toppingList.removeIf(t -> t.getName().equalsIgnoreCase(name));
     }
 
     public void addItem(PricedItem item){
@@ -79,9 +86,26 @@ public class Order {
                 System.out.println(sandwich.getBreadType() + sandwich.getSize() +
                         sandwich.getPrice() + sandwich.isToasted());
                 for(Topping topping : sandwich.getToppingList()){
-                    System.out.println("   - " + topping.getName() +
+                    String extraTopping = "";
+                    if(topping instanceof MeatTopping){
+                        extraTopping = ((MeatTopping) topping).isExtra() ? " (extra)" : "";
+                    }
+                    else if (topping instanceof CheeseTopping){
+                        extraTopping = ((CheeseTopping) topping).isExtra() ? " (extra)" : "";
+                    }
+                    System.out.println("   - " + topping.getName() + extraTopping);
                 }
             }
+            if(item instanceof Chips){
+                System.out.println("Chips: ");
+            }
+            if(item instanceof  Drink drink){
+                System.out.println("    Drink size: " + drink.getSize());
+            }
+            double price = item.getPrice();
+            System.out.printf(" Price: $%.2f%n%n", price);
+            total += price;
         }
+        System.out.println("TOTAL: $%.2f%n, total");
     }
 }

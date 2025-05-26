@@ -15,6 +15,7 @@ public abstract class PricedItem {
         this.name = name;
     }
      public double getPrice(){
+
          return 0;
      }
 }

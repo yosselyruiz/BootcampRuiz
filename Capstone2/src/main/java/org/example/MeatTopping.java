@@ -3,6 +3,13 @@ package org.example;
 
 public class MeatTopping extends Topping{
     private boolean isExtra;
+    private int size;
+
+    public MeatTopping(String name, boolean isExtra, int size) {
+        super(name);
+        this.isExtra = isExtra;
+        this.size = size;
+    }
 
     public boolean isExtra() {
         return isExtra;
@@ -12,18 +19,17 @@ public class MeatTopping extends Topping{
         isExtra = extra;
     }
 
-    public MeatTopping(String name, boolean isExtra) {
-        super(name);
-        this.isExtra = isExtra;
-
-
+    public int getSize() {
+        return size;
     }
 
+    public void setSize(int size) {
+        this.size = size;
+    }
     @Override
     public double getPrice(){
-        int size = 0;
-        double base;
-        switch (size){
+        double base = 0.0;
+        switch (size) {
             case 4:
                 base = 1.00;
                 break;
@@ -33,9 +39,9 @@ public class MeatTopping extends Topping{
             case 12:
                 base = 3.00;
                 break;
-            default :
-                base = 0;
-                System.out.println("No meat");
+            default:
+                base = 0.00;
+                System.out.println("No meat.");
         }
         if(isExtra){
             switch (size){
