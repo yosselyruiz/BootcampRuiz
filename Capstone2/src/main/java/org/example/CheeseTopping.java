@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CheeseTopping extends Topping{
@@ -11,6 +13,7 @@ public class CheeseTopping extends Topping{
         super(name);
         this.isExtra = isExtra;
         this.size = size;
+
     }
 
     public int getSize() {
@@ -46,7 +49,7 @@ public class CheeseTopping extends Topping{
             default :
                 base = 0.00;
                 System.out.println("No cheese.");
-        };
+        }
         if(isExtra){
             switch (size) {
                 case 4:

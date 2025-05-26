@@ -1,0 +1,18 @@
+====== DELI -cious Receipt ======Order date: 20250526-144548
+Custom sandwich
+Sandwich on wheat, 12", Toasted
+ Toppings:
+    - HAm
+    - Swiss
+    - cucumbers
+  Price: $8.50
+Custom sandwich
+Sandwich on wheat, 12", Toasted
+ Toppings:
+    - HAm
+    - Swiss
+    - cucumbers
+  Price: $8.50
+TOTAL: $17.00
+====================================
+Thank you for your business!

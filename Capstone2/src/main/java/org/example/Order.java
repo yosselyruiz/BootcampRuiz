@@ -75,37 +75,43 @@ public class Order {
         }
         return total;
     }
-    public void orderSummary(){
-        System.out.println("Oder placed on: " + dateTime);
-        System.out.println("Here is your order summary: ");
-        double total = 0.0;
-        for(PricedItem item : items){
-            System.out.println("- " + item.getName());
+    public void orderSummary() {
+        StringBuilder sb = StringBuilder() {
+            sb.append("Oder placed on: ").append(dateTime).append("\n");
+            sb.append("Here is your order summary:\n");
+            double total = 0.0;
+            for (PricedItem item : items) {
+                sb.append("- ").append(item.getName()).append("\n");
 
-            if(item instanceof Sandwich sandwich){
-                System.out.println(sandwich.getBreadType() + sandwich.getSize() +
-                        sandwich.getPrice() + sandwich.isToasted());
-                for(Topping topping : sandwich.getToppingList()){
-                    String extraTopping = "";
-                    if(topping instanceof MeatTopping){
-                        extraTopping = ((MeatTopping) topping).isExtra() ? " (extra)" : "";
+                if (item instanceof Sandwich sandwich) {
+                    sb.append(String.format(" %s on %s, %d\"%s\n",
+                            sandwich.getName(),
+                            sandwich.getBreadType(),
+                            sandwich.getSize(),
+                            sandwich.isToasted() ? ", Toasted" : ", Not Toasted"));
+                    for (Topping topping : sandwich.getToppingList()) {
+                        String extraTopping = "";
+                        if (topping instanceof MeatTopping meatTopping && meatTopping.isExtra()) {
+                            extraTopping = ((MeatTopping) topping).isExtra() ? " (extra)" : "";
+                        } else if (topping instanceof CheeseTopping cheeseTopping && cheeseTopping.isExtra()) {
+                            extraTopping = ((CheeseTopping) topping).isExtra() ? " (extra)" : "";
+                        }
+                        sb.append("   - ").append(topping.getName()).append(extraTopping).append("\n");
                     }
-                    else if (topping instanceof CheeseTopping){
-                        extraTopping = ((CheeseTopping) topping).isExtra() ? " (extra)" : "";
-                    }
-                    System.out.println("   - " + topping.getName() + extraTopping);
                 }
+                if (item instanceof Chips) {
+                    System.out.println("Chips: ");
+                }
+                if (item instanceof Drink drink) {
+                    System.out.println("    Drink size: " + drink.getSize());
+                }
+                double price = item.getPrice();
+                total += price;
+                System.out.printf(" Price: $%.2f%n%n", price);
             }
-            if(item instanceof Chips){
-                System.out.println("Chips: ");
-            }
-            if(item instanceof  Drink drink){
-                System.out.println("    Drink size: " + drink.getSize());
-            }
-            double price = item.getPrice();
-            System.out.printf(" Price: $%.2f%n%n", price);
-            total += price;
+            sb.append(String.format("TOTAL: $%.2f\n", total));
+            sb.append("====================================\n");
+            return sb.toString();
         }
-        System.out.println("TOTAL: $%.2f%n, total");
     }
 }

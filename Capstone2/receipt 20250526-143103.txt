@@ -1,0 +1,17 @@
+====== DELI -cious Receipt ======Order date: 20250526-143103
+Custom sandwich
+Sandwich on wrap, 12", Not Toasted
+ Toppings:
+    - chicken
+    - peppers
+  Price: $8.50
+TOTAL: $8.50
+====================================
+Custom sandwich
+Sandwich on wrap, 12", Not Toasted
+ Toppings:
+    - chicken
+    - peppers
+  Price: $8.50
+TOTAL: $17.00
+====================================

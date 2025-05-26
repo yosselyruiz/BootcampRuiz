@@ -1,0 +1,17 @@
+====== DELI -cious Receipt ======Order date: 2025-05-26T14:26:24.474372500
+Custom sandwich
+Sandwich on white, 4", Toasted
+ Toppings:
+    - steak (extra
+    - american
+    - lettuce
+  Price: $5.50
+Custom sandwich
+Sandwich on white, 4", Toasted
+ Toppings:
+    - steak (extra
+    - american
+    - lettuce
+  Price: $5.50
+TOTAL: $11.00
+====================================

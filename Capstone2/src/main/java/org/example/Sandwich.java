@@ -44,12 +44,13 @@ public class Sandwich extends PricedItem{
     public void setSize(int size) {
         this.size = size;
     }
+    public void addTopping(Topping topping){
+        toppingList.add(topping);
+    }
 
     @Override
     public double getPrice(){
-//        Scanner scanner = new Scanner(System.in);
-//        int size = scanner.nextInt();
-        double base = 0;
+        double base;
         switch (size){
             case 4:
                 base = 5.50;
@@ -61,7 +62,8 @@ public class Sandwich extends PricedItem{
                 base = 8.50;
                 break;
             default:
-                System.out.println("Must chose a type of bread.");
+                throw new IllegalArgumentException("Please chose a valid size(4,8, or 12 in). " +
+                        "Cannot remove bread.");
         }
         return base;
     }

@@ -1,0 +1,21 @@
+====== DELI -cious Receipt ======Order date: 20250526-144753
+Custom sandwich
+Sandwich on wheat, 8", Toasted
+ Toppings:
+    - Steak
+    - Provolone
+    - onions
+    - peppers
+    - lettuce
+  Price: $7.00
+Custom sandwich
+Sandwich on wheat, 8", Toasted
+ Toppings:
+    - Steak
+    - Provolone
+    - onions
+    - peppers
+    - lettuce
+  Price: $7.00
+TOTAL: $14.00
+====================================
