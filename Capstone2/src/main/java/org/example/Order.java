@@ -1,6 +1,7 @@
 package org.example;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,24 +76,25 @@ public class Order {
         }
         return total;
     }
-    public void orderSummary() {
-        StringBuilder sb = StringBuilder() {
-            sb.append("Oder placed on: ").append(dateTime).append("\n");
+    public String orderSummary(Order order) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm \n");
+        String timestamp = order.getDateTime().format(formatter);
+        String receipt = "receipt " + timestamp;
+        StringBuilder sb = new StringBuilder();
+            sb.append("Order placed on: ").append(receipt);
             sb.append("Here is your order summary:\n");
             double total = 0.0;
             for (PricedItem item : items) {
-                sb.append("- ").append(item.getName()).append("\n");
-
                 if (item instanceof Sandwich sandwich) {
                     sb.append(String.format(" %s on %s, %d\"%s\n",
                             sandwich.getName(),
                             sandwich.getBreadType(),
                             sandwich.getSize(),
-                            sandwich.isToasted() ? ", Toasted" : ", Not Toasted"));
+                            sandwich.isToasted() ? ", Toasted" : "Not Toasted"));
                     for (Topping topping : sandwich.getToppingList()) {
                         String extraTopping = "";
-                        if (topping instanceof MeatTopping meatTopping && meatTopping.isExtra()) {
-                            extraTopping = ((MeatTopping) topping).isExtra() ? " (extra)" : "";
+                        if (topping instanceof MeatTopping && ((MeatTopping) topping).isExtra())  {
+                            extraTopping =  " (extra)";
                         } else if (topping instanceof CheeseTopping cheeseTopping && cheeseTopping.isExtra()) {
                             extraTopping = ((CheeseTopping) topping).isExtra() ? " (extra)" : "";
                         }
@@ -100,18 +102,17 @@ public class Order {
                     }
                 }
                 if (item instanceof Chips) {
-                    System.out.println("Chips: ");
+                    sb.append(" Chips \n");
                 }
                 if (item instanceof Drink drink) {
-                    System.out.println("    Drink size: " + drink.getSize());
+                    sb.append("    Drink size: ").append(drink.getSize()).append("\n");
                 }
                 double price = item.getPrice();
                 total += price;
-                System.out.printf(" Price: $%.2f%n%n", price);
             }
+            System.out.println("Thank you for your order!");
             sb.append(String.format("TOTAL: $%.2f\n", total));
             sb.append("====================================\n");
             return sb.toString();
         }
-    }
 }

@@ -28,7 +28,7 @@ public class MeatTopping extends Topping{
     }
     @Override
     public double getPrice(){
-        double base = 0.0;
+        double base;
         switch (size) {
             case 4:
                 base = 1.00;

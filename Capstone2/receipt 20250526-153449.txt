@@ -1,0 +1,42 @@
+====== DELI -cious Receipt ======Order placed on: 2025-05-26T15:34:49.628768600
+Here is your order summary:
+- Custom sandwich
+ Custom sandwich on wheat, 8", Toasted
+   - Roast Beef
+   - Swiss
+   - lettuce
+   - onions
+   - cucumbers
+ Price: $7.00
+
+- Custom sandwich
+ Custom sandwich on wheat, 8", Toasted
+   - Roast Beef
+   - Swiss
+   - lettuce
+   - onions
+   - cucumbers
+ Price: $7.00
+
+TOTAL: $14.00
+====================================
+Custom sandwich
+Sandwich on wheat, 8", Toasted
+ Toppings:
+    - Roast Beef
+    - Swiss
+    - lettuce
+    - onions
+    - cucumbers
+  Price: $7.00
+Custom sandwich
+Sandwich on wheat, 8", Toasted
+ Toppings:
+    - Roast Beef
+    - Swiss
+    - lettuce
+    - onions
+    - cucumbers
+  Price: $7.00
+TOTAL: $14.00
+====================================

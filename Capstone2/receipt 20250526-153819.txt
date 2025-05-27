@@ -1,0 +1,20 @@
+====== DELI -cious Receipt ======Order placed on: 2025-05-26T15:38:19.616476200
+Here is your order summary:
+- Custom sandwich
+ Custom sandwich on wheat, 8", Toasted
+   - chicken
+   - provolone
+   - lettuce
+ Price: $7.00
+
+- Custom sandwich
+ Custom sandwich on wheat, 8", Toasted
+   - chicken
+   - provolone
+   - lettuce
+ Price: $7.00
+
+TOTAL: $14.00
+====================================
+TOTAL: $0.00
+====================================

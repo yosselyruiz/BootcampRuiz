@@ -49,8 +49,7 @@ public class UserInterface {
 
         switch(choice){
             case 1:
-                Sandwich sandwich = buildSandwich();
-                order.addItem(sandwich);
+                buildSandwich();
                 break;
             case 2:
                // order.addItem(buildDrink());
@@ -95,7 +94,7 @@ public class UserInterface {
                 boolean isExtra = scanner.nextLine().equalsIgnoreCase("yes");
 
                 MeatTopping meatTopping = new MeatTopping(meat, isExtra, sandwich.getSize());
-                sandwich.getToppingList().add(meatTopping);
+                sandwich.addTopping(meatTopping);
             } else {
                 System.out.println("No meat added");
         }
@@ -109,7 +108,7 @@ public class UserInterface {
             boolean isExtra = scanner.nextLine().equalsIgnoreCase("yes");
 
             CheeseTopping cheeseTopping = new CheeseTopping(cheese, isExtra, sandwich.getSize());
-            sandwich.getToppingList().add(cheeseTopping);
+            sandwich.addTopping(cheeseTopping);
         } else {
             System.out.println("No cheese added.");
         }
@@ -149,11 +148,6 @@ public class UserInterface {
     }
 
     private void checkout(Order order){
-        try{
-            ReceiptFileManager.printReceipt(order);
-        } catch(IOException ex){
-            System.out.println("Error saving receipt: " + ex.getMessage());
-        }
-        System.out.println("Thank you for your order!");
+        System.out.println(order.orderSummary(order));
     }
 }

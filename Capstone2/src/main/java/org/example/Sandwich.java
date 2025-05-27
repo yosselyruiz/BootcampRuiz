@@ -65,7 +65,11 @@ public class Sandwich extends PricedItem{
                 throw new IllegalArgumentException("Please chose a valid size(4,8, or 12 in). " +
                         "Cannot remove bread.");
         }
-        return base;
+        double toppingsTotal = 0.0;
+        for(Topping topping : toppingList){
+            toppingsTotal += topping.getPrice();
+        }
+        return base + toppingsTotal;
     }
 
     @Override

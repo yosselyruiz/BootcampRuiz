@@ -38,13 +38,13 @@ public class CheeseTopping extends Topping{
         double base;
         switch (size){
             case 4:
-                base = 1.00;
+                base = 0.75;
                 break;
             case 8:
-                base = 2.00;
+                base = 1.50;
                 break;
             case 12:
-                base = 3.00;
+                base = 2.25;
                 break;
             default :
                 base = 0.00;

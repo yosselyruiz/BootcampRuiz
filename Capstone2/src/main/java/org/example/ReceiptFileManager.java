@@ -18,35 +18,7 @@ public class ReceiptFileManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(receiptFile))) {
             //write to file
             writer.write("====== DELI -cious Receipt ======");
-            writer.write("Order date: " + timestamp + "\n");
-            System.out.println("====== DELI -cious Receipt ======");
-            System.out.println("Order date: \" + timestamp + \"\\n");
-
-            List<PricedItem> items = order.getItem();
-            double total = 0.0;
-
-            for (PricedItem item : items) {
-                writer.write(item.getName() + "\n");
-                System.out.println(item.getName());
-
-                //if item is a sandwich, show the toppings
-                if (item instanceof Sandwich) {
-                    Sandwich sandwich = (Sandwich) item;
-                    writer.write(sandwich.toString() + "\n");
-                    System.out.println(sandwich.toString());
-                }
-                double price = item.getPrice();
-                total += price;
-                writer.write(String.format("  Price: $%.2f%n", price));
-                writer.write("");
-                System.out.printf("Price: $%.2f%n", price);
-                System.out.println("====================================\n");
-            }
-            //Footer
-            writer.write(String.format("TOTAL: $%.2f%n", total));
-            writer.write("====================================\n");
-            System.out.printf("TOTAL: $%.2f%n", total);
-            System.out.println("====================================");
+            //System.out.println(order.orderSummary(order));
         } catch (IOException ex) {
             System.out.println("Error writing receipt to file: " + ex.getMessage());
         }
