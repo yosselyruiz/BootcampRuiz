@@ -77,9 +77,9 @@ public class Order {
         return total;
     }
     public String orderSummary(Order order) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH:mm \n");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd @ HH:mm \n");
         String timestamp = order.getDateTime().format(formatter);
-        String receipt = "receipt " + timestamp;
+        String receipt = timestamp;
         StringBuilder sb = new StringBuilder();
             sb.append("Order placed on: ").append(receipt);
             sb.append("Here is your order summary:\n");
@@ -90,7 +90,7 @@ public class Order {
                             sandwich.getName(),
                             sandwich.getBreadType(),
                             sandwich.getSize(),
-                            sandwich.isToasted() ? ", Toasted" : "Not Toasted"));
+                            sandwich.isToasted() ? ", Toasted" : " Not Toasted"));
                     for (Topping topping : sandwich.getToppingList()) {
                         String extraTopping = "";
                         if (topping instanceof MeatTopping && ((MeatTopping) topping).isExtra())  {
@@ -98,19 +98,19 @@ public class Order {
                         } else if (topping instanceof CheeseTopping cheeseTopping && cheeseTopping.isExtra()) {
                             extraTopping = ((CheeseTopping) topping).isExtra() ? " (extra)" : "";
                         }
-                        sb.append("   - ").append(topping.getName()).append(extraTopping).append("\n");
+                        sb.append("  - ").append(topping.getName()).append(extraTopping).append("\n");
                     }
                 }
                 if (item instanceof Chips) {
-                    sb.append(" Chips \n");
+                    sb.append("  Chips \n");
                 }
                 if (item instanceof Drink drink) {
-                    sb.append("    Drink size: ").append(drink.getSize()).append("\n");
+                    sb.append("  Drink: ").append(item.toString()).append("\n");
                 }
                 double price = item.getPrice();
                 total += price;
             }
-            System.out.println("Thank you for your order!");
+            System.out.println("Thank you for your order!\n");
             sb.append(String.format("TOTAL: $%.2f\n", total));
             sb.append("====================================\n");
             return sb.toString();

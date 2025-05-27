@@ -18,13 +18,61 @@ public class UserInterface {
         while (true) {
             System.out.println("==== Welcome to DELI-cious ====");
             System.out.println("1) New Order");
+            System.out.println("2) Menu");
             System.out.println("0) Exit");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
             if (choice == 1) {
                 startNewOrder();
-            } else if (choice == 0) {
+            }
+            else if(choice == 2){
+                System.out.println("""
+╔════════════════════════════════════════════════════╗
+║                  DELI-cious Menu                   ║
+╠════════════════════════════════════════════════════╣
+║  Sandwich Options                                  ║
+║  • Bread: White, Wheat, Rye, Wrap                  ║
+║  • Sizes: 4" ($5.50), 8" ($7.00), 12" ($8.50)      ║
+║  • Toasted: Yes / No                               ║
+║                                                    ║
+║  • Meats:                                          ║
+║    - 4": $1.00   + Extra: $0.50                    ║
+║    - 8": $2.00   + Extra: $1.00                    ║
+║    - 12": $3.00  + Extra: $1.50                    ║
+║    Types: Steak, Ham, Salami, Roast Beef,          ║
+║           Chicken, Bacon                           ║
+║                                                    ║
+║  • Cheese:                                         ║
+║    - 4": $0.75   + Extra: $0.30                    ║
+║    - 8": $1.50   + Extra: $0.60                    ║
+║    - 12": $2.25  + Extra: $0.90                    ║
+║    Types: American, Provolone, Cheddar, Swiss      ║
+║                                                    ║
+║  • Regular Toppings (Included):                    ║
+║    Lettuce, Peppers, Onions, Tomatoes,             ║
+║    Jalapeños, Cucumbers, Pickles, Guacamole,       ║
+║    Mushrooms                                       ║
+║                                                    ║
+║  • Sauces (Included):                              ║
+║    Ketchup, Ranch, Thousand Islands,               ║
+║    Vinaigrette, Mayo, Mustard                      ║
+║  • Sauces (Included):                              ║ 
+║    Au jus, Sauce                                   ║
+╠════════════════════════════════════════════════════╣
+║  Drinks                                            ║
+║  • Small  - $2.00                                  ║
+║  • Medium - $2.50                                  ║
+║  • Large  - $3.00                                  ║
+╠════════════════════════════════════════════════════╣
+║  Chips                                             ║
+║  • All varieties - $1.50                           ║
+╠════════════════════════════════════════════════════╣
+║              Thank you for coming!                 ║
+╚════════════════════════════════════════════════════╝
+""");
+            }
+            else if (choice == 0) {
                 System.out.println("Thank you for your business. Have a nice day!");
                 break;
             } else {
@@ -52,10 +100,10 @@ public class UserInterface {
                 buildSandwich();
                 break;
             case 2:
-               // order.addItem(buildDrink());
+               addDrink();
                 break;
             case 3:
-                //order.addItem(buildChips());
+                addChip();
                 break;
             case 4:
                 checkout(order);
@@ -70,7 +118,7 @@ public class UserInterface {
     }
     private Sandwich buildSandwich() {
         //Bread type
-        System.out.println("Choose bread type (e.g, Wheat, White, Rye, or Wrap");
+        System.out.println("Choose bread type (e.g, Wheat, White, Rye, or Wrap)");
         String bread = scanner.nextLine();
 
         //size
@@ -83,7 +131,7 @@ public class UserInterface {
         boolean isToasted = scanner.nextLine().equalsIgnoreCase("yes");
 
         //create custom sandwich
-        Sandwich sandwich = new Sandwich("Custom sandwich", bread, isToasted, size);
+        Sandwich sandwich = new Sandwich("Sandwich", bread, isToasted, size);
         //Add meat toppings
             System.out.println("What type of meat would you like?:\n " +
                     "(Steak/Ham/Salami/Roast Beef/Chicken/Bacon/Extra meat/No meat");
@@ -117,6 +165,36 @@ public class UserInterface {
         //Add sandwich to order:
         order.addItem(sandwich);
         return sandwich;
+    }
+    private void addDrink() {
+        System.out.println("What size drink would you like? \n" +
+                "1) Small , 2) Medium, or 3) Large");
+        int size = scanner.nextInt();
+        scanner.nextLine();
+        String name = switch (size) {
+            case 1 -> "Small";
+            case 2 -> "Medium";
+            case 3 -> "Large";
+            default -> {
+                System.out.println("Invalid size. Defaulting to Small Drink.");
+                yield "Small Drink";
+            }
+        };
+        Drink drink = new Drink(name, size);
+        order.addItem(drink);
+        System.out.println("Drink added to your order.");
+    }
+    private void addChip(){
+        System.out.println("Would you like chips? (Yes / No)");
+        String choice = scanner.nextLine();
+        if(choice.equalsIgnoreCase("yes")){
+            String name = "Chips";
+            Chips chipChoice = new Chips(name,true);
+            order.addItem(chipChoice);
+            System.out.println("Chips added to your order.");
+        } else {
+            System.out.println("No chips added.");
+        }
     }
     private void addRegularTopping(Sandwich sandwich, Scanner scanner){
         System.out.println("Add regular toppings to your sandwich.");

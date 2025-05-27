@@ -1,9 +1,8 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Drink extends PricedItem{
     private int size;
+
 
     public Drink(String name, int size) {
         super(name);
@@ -19,13 +18,6 @@ public class Drink extends PricedItem{
     }
     @Override
     public double getPrice(){
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Would you like a drink? If yes, enter the size:\n" +
-//                "1) Small\n" +
-//                "2) Medium\n" +
-//                "3) Large\n" +
-//                "0) No drink\n");
-//        int size = scanner.nextInt();
         double base;
         switch (size){
             case 1:
@@ -43,5 +35,10 @@ public class Drink extends PricedItem{
         }
 
         return base;
+    }
+
+    @Override
+    public String toString(){
+        return getName();
     }
 }

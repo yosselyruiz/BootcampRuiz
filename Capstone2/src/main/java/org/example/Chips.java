@@ -21,14 +21,4 @@ public class Chips extends PricedItem{
     public double getPrice(){
         return 1.50;
     }
-    //this is for my UI:
-    //Scanner scanner = new Scanner(System.in);
-    //System.out.print("Would you like to add chips? (yes/no): ");
-    //String input = scanner.nextLine();
-    //
-    //if (input.equalsIgnoreCase("yes")) {
-    //    Chips chips = new Chips("Chips");
-    //    order.addItem(chips);
-    //    System.out.println("Chips added.");
-    //}
 }
