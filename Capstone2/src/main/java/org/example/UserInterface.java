@@ -118,47 +118,122 @@ public class UserInterface {
     }
     private Sandwich buildSandwich() {
         //Bread type
-        System.out.println("Choose bread type (e.g, Wheat, White, Rye, or Wrap)");
-        String bread = scanner.nextLine();
+       String bread = "";
+       boolean validBreadType = false;
+       while(!validBreadType){
+           System.out.println("What type of bread would you like?\n" +
+                   "(White, Wheat, Rye, or Wrap)");
+           bread = scanner.nextLine().trim();
+           if(bread.equalsIgnoreCase("white") ||
+                   bread.equalsIgnoreCase("wheat") ||
+                   bread.equalsIgnoreCase("rye") ||
+                   bread.equalsIgnoreCase("wrap")){
+               validBreadType = true;
+               System.out.println(bread + " added.");
+           } else {
+               System.out.println("Invalid input. Please select from among the options of bread.");
+           }
+       }
 
         //size
-        System.out.println("Choose sandwich size (4, 8, or 12 inches): ");
-        int size = scanner.nextInt();
-        scanner.nextLine();
+        int size = 0;
+        boolean valid = false;
+        while (!valid) {
+            System.out.println("Choose a sandwich size (4 , 8 , or 12 inches): ");
+            if (scanner.hasNextInt()) {
+                size = scanner.nextInt();
+                scanner.nextLine();
+                if (size == 4 || size == 8 || size == 12) {
+                    valid = true;
+                    System.out.println(size + " inch added.");
+                } else {
+                    System.out.println("Invalid size. Please chose 4,8, or 12 inches.");
+                }
+            } else {
+                System.out.println("You have entered a letter or symbol. Please enter a valid number.\n");
+                scanner.nextLine();
+            }
+        }
 
         //toasted
-        System.out.println("Would you like it to toasted? (Yes / No): ");
-        boolean isToasted = scanner.nextLine().equalsIgnoreCase("yes");
+        boolean isToasted = false;
+        boolean validInput = false;
+        while(!validInput){
+            System.out.println("Would you like it to toasted? (Yes / No): ");
+            String input = scanner.nextLine().trim();
+            if(input.equalsIgnoreCase("yes")) {
+                isToasted = true;
+                validInput = true;
+                System.out.println("Toasted");
+            } else if (input.equalsIgnoreCase("No")) {
+                isToasted = false;
+                validInput = true;
+                System.out.println("Not toasted.");
+                } else {
+                System.out.println("Invalid input. Please enter Yes or No.");
+            }
+        }
 
         //create custom sandwich
         Sandwich sandwich = new Sandwich("Sandwich", bread, isToasted, size);
         //Add meat toppings
+        boolean validMeat = false;
+        String meat = "";
+        while(!validMeat) {
             System.out.println("What type of meat would you like?:\n " +
-                    "(Steak/Ham/Salami/Roast Beef/Chicken/Bacon/Extra meat/No meat");
-            String meat = scanner.nextLine().trim();
-        System.out.println(meat + " added");
+                    "(Steak / Ham / Salami / Roast Beef / Chicken / Bacon  / No meat");
+            meat = scanner.nextLine().trim();
+            if(meat.equalsIgnoreCase("steak") ||
+                    meat.equalsIgnoreCase("ham") ||
+                    meat.equalsIgnoreCase("salami") ||
+                    meat.equalsIgnoreCase("roast beef") ||
+                    meat.equalsIgnoreCase("chicken") ||
+                    meat.equalsIgnoreCase("bacon")){
+                validMeat = true;
+                System.out.println(meat + " added.");
+            } else if (meat.equalsIgnoreCase("no meat")){
+                validMeat = true;
+                System.out.println(meat);
+            }
+
+            else {
+                System.out.println("Invalid input. Please select from among the options.");
+            }
+        }
             if(!meat.equalsIgnoreCase("no meat")) {
                 System.out.println("Extra meat? (yes/no): ");
                 boolean isExtra = scanner.nextLine().equalsIgnoreCase("yes");
 
                 MeatTopping meatTopping = new MeatTopping(meat, isExtra, sandwich.getSize());
                 sandwich.addTopping(meatTopping);
-            } else {
-                System.out.println("No meat added");
-        }
+            }
         // Add cheese Toppings:
-        System.out.println("Enter the type of cheese you want: \n" +
-                "(American/Provolone/Cheddar/Swiss/No cheese)" +
-                "Type 'done' to finish");
-        String cheese = scanner.nextLine().trim();
+        boolean validCheese = false;
+        String cheese = "";
+        while(!validCheese){
+            System.out.println("Enter the type of cheese you want: \n" +
+                    "(American/Provolone/Cheddar/Swiss/No cheese)" +
+                    "Type 'done' to finish");
+            cheese = scanner.nextLine().trim();
+            if(cheese.equalsIgnoreCase("American") ||
+            cheese.equalsIgnoreCase("Provolone") ||
+            cheese.equalsIgnoreCase("cheddar") ||
+            cheese.equalsIgnoreCase("Swiss")){
+                validCheese = true;
+                System.out.println(cheese + " added");
+            } else if (cheese.equalsIgnoreCase("no cheese")){
+                validCheese = true;
+                System.out.println(cheese);
+            } else {
+                System.out.println("Invalid input. Please select from among the options.");
+            }
+        }
         if (!cheese.equalsIgnoreCase("no cheese")) {
-            System.out.print("Do you want extra cheese? (yes/no): ");
+            System.out.print("Do you want extra cheese? (yes/no): \n");
             boolean isExtra = scanner.nextLine().equalsIgnoreCase("yes");
 
             CheeseTopping cheeseTopping = new CheeseTopping(cheese, isExtra, sandwich.getSize());
             sandwich.addTopping(cheeseTopping);
-        } else {
-            System.out.println("No cheese added.");
         }
         //Add regular toppings:
         addRegularTopping(sandwich,scanner);
@@ -197,7 +272,7 @@ public class UserInterface {
         }
     }
     private void addRegularTopping(Sandwich sandwich, Scanner scanner){
-        System.out.println("Add regular toppings to your sandwich.");
+        System.out.println("What toppings would you like to add on your sandwich?\n");
         System.out.println("Available: lettuce, peppers, onions, tomatoes, jalapeños, cucumbers, pickles, guacamole, mushrooms");
         System.out.println("Type each topping one at a time. Type 'done' when finished:");
 
