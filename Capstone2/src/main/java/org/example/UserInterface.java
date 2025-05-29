@@ -1,6 +1,5 @@
 package org.example;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -212,8 +211,7 @@ public class UserInterface {
         String cheese = "";
         while(!validCheese){
             System.out.println("Enter the type of cheese you want: \n" +
-                    "(American/Provolone/Cheddar/Swiss/No cheese)" +
-                    "Type 'done' to finish");
+                    "(American/Provolone/Cheddar/Swiss/No cheese)");
             cheese = scanner.nextLine().trim();
             if(cheese.equalsIgnoreCase("American") ||
             cheese.equalsIgnoreCase("Provolone") ||
@@ -292,6 +290,31 @@ public class UserInterface {
             if(topping.equalsIgnoreCase("done")) break;
 
             if(validToppings.contains(topping)) {
+                sandwich.getToppingList().add(new RegularTopping(topping));
+                System.out.println(topping + " added");
+            } else {
+                System.out.println("Invalid topping. Please try again.");
+            }
+        }
+        //Sauce
+        System.out.println("Would you like to add sauce toppings? (Included)\n" +
+                "(Mayo / Mustard / Ketchup / Ranch / Thousand Island / Vinaigrette / Au jus / Sauce)\n" +
+                "Type 'done when you are finish selecting.\n");
+        List<String> validSauceToppings = new ArrayList<>();
+        validSauceToppings.add("mayo");
+        validSauceToppings.add("mustard");
+        validSauceToppings.add("ketchup");
+        validSauceToppings.add("ranch");
+        validSauceToppings.add("thousand islands");
+        validSauceToppings.add("vinaigrette");
+        validSauceToppings.add("au Jus");
+        validSauceToppings.add("sauce");
+
+        while(true) {
+            String topping = scanner.nextLine().toLowerCase();
+            if(topping.equalsIgnoreCase("done"))
+                break;
+            if(validSauceToppings.contains(topping)) {
                 sandwich.getToppingList().add(new RegularTopping(topping));
                 System.out.println(topping + " added");
             } else {

@@ -104,7 +104,7 @@ public class Order {
                 if (item instanceof Chips) {
                     sb.append("  Chips \n");
                 }
-                if (item instanceof Drink drink) {
+                if (item instanceof Drink) {
                     sb.append("  Drink: ").append(item.toString()).append("\n");
                 }
                 double price = item.getPrice();
