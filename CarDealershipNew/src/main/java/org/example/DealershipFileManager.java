@@ -51,27 +51,6 @@ public class DealershipFileManager {
 
     public static void saveDealership(Dealership dealership){
         overWriteInventoryFile(dealership);
-
-//        String filePath = "src/main/resources/inventory.csv";
-//        File file = new File(filePath);
-//
-//        try{
-//          File folder = file.getParentFile();
-//          if(!folder.exists()){
-//              folder.mkdirs();
-//          }
-//
-//          FileWriter writer = new FileWriter(file, true);
-//          writer.write("Best Cars|123 Main St|555-1234");
-//          for(Vehicle v: dealership.getInventory()){
-//              writer.write(v.toString() + "\n");
-//          }
-//          writer.close();
-//            System.out.println("Vehicle was added to file.");
-//        }
-//        catch (IOException exception){
-//            System.out.println("Error occurred while writting transactions to the file.");
-//        }
     }
     public static void overWriteInventoryFile(Dealership dealership){
         String filePath = "src/main/resources/inventory.csv";
